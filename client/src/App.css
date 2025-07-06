@@ -1,0 +1,222 @@
+/* Global App Styles */
+.App {
+  text-align: center;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Animation utilities */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Loading spinner */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom button styles */
+.gradient-button {
+  background: linear-gradient(135deg, #4caf50 0%, #8bc34a 100%);
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.gradient-button:hover {
+  background: linear-gradient(135deg, #45a049 0%, #7cb342 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Form styles */
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+/* Card styles */
+.stat-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .mobile-full-width {
+    width: 100% !important;
+  }
+}
+
+/* Plant and garden specific styles */
+.plant-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.plant-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.2);
+}
+
+.garden-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.garden-card:hover {
+  border-color: #4caf50;
+  transform: translateY(-2px);
+}
+
+/* Status indicators */
+.status-healthy {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.status-warning {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.status-critical {
+  color: #f44336;
+  font-weight: bold;
+}
+
+/* Weather widget styles */
+.weather-widget {
+  background: linear-gradient(135deg, #87ceeb 0%, #98fb98 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+/* Community styles */
+.community-post {
+  border-left: 4px solid #4caf50;
+  background: #f8f9fa;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 0 8px 8px 0;
+}
+
+/* Notification styles */
+.notification-item {
+  border-left: 4px solid #2196f3;
+  padding: 0.5rem;
+  margin: 0.25rem 0;
+  background: rgba(33, 150, 243, 0.05);
+  border-radius: 0 4px 4px 0;
+}
+
+.notification-item.unread {
+  border-left-color: #4caf50;
+  background: rgba(76, 175, 80, 0.1);
+  font-weight: bold;
+}
+
+/* Search and filter styles */
+.search-bar {
+  margin-bottom: 1rem;
+}
+
+.filter-chip {
+  margin: 0.25rem;
+}
+
+/* Loading states */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
