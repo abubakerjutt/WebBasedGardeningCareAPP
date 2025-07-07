@@ -13,10 +13,6 @@ import {
   Chip,
   Tabs,
   Tab,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   List,
   ListItem,
   ListItemText,
@@ -62,10 +58,6 @@ const AdminDashboard = () => {
   const [supervisors, setSupervisors] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [stats, setStats] = useState({});
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [userDialog, setUserDialog] = useState(false);
-  const [userPlants, setUserPlants] = useState([]);
-
   const loadUsers = async () => {
     try {
       setLoading(true);
@@ -133,28 +125,6 @@ const AdminDashboard = () => {
       console.error("Error loading stats:", error);
       showError("Failed to load statistics");
       setStats({});
-    }
-  };
-
-  const loadUserPlants = async (userId) => {
-    try {
-      const response = await api.get(`/admin/user-plants?user=${userId}`);
-      const data = response.data.data || response.data;
-
-      // Extract user plants from the response
-      const plantsData = data.userPlants || data.plants || data;
-
-      // Ensure data is an array
-      if (Array.isArray(plantsData)) {
-        setUserPlants(plantsData);
-      } else {
-        console.warn("User plants API returned non-array data:", plantsData);
-        setUserPlants([]);
-      }
-    } catch (error) {
-      console.error("Error loading user plants:", error);
-      showError("Failed to load user plants");
-      setUserPlants([]);
     }
   };
 
@@ -399,71 +369,6 @@ const AdminDashboard = () => {
             </Grid>
           </TabPanel>
         </Paper>
-
-        {/* User Detail Dialog */}
-        <Dialog
-          open={userDialog}
-          onClose={() => setUserDialog(false)}
-          maxWidth="md"
-          fullWidth
-        >
-          <DialogTitle>User Details: {selectedUser?.name}</DialogTitle>
-          <DialogContent>
-            {selectedUser && (
-              <Box>
-                <Typography variant="h6" gutterBottom>
-                  User Information
-                </Typography>
-                <List>
-                  <ListItem>
-                    <ListItemText
-                      primary="Email"
-                      secondary={selectedUser.email}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText
-                      primary="Joined"
-                      secondary={new Date(
-                        selectedUser.createdAt
-                      ).toLocaleDateString()}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText
-                      primary="Status"
-                      secondary={selectedUser.isActive ? "Active" : "Inactive"}
-                    />
-                  </ListItem>
-                </List>
-
-                <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-                  User's Plants (
-                  {Array.isArray(userPlants) ? userPlants.length : 0})
-                </Typography>
-                <List>
-                  {Array.isArray(userPlants) &&
-                    userPlants.map((userPlant) => (
-                      <ListItem key={userPlant._id}>
-                        <ListItemIcon>
-                          <PlantsIcon />
-                        </ListItemIcon>
-                        <ListItemText
-                          primary={userPlant.plant?.name}
-                          secondary={`Added: ${new Date(
-                            userPlant.dateAdded
-                          ).toLocaleDateString()}`}
-                        />
-                      </ListItem>
-                    ))}
-                </List>
-              </Box>
-            )}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setUserDialog(false)}>Close</Button>
-          </DialogActions>
-        </Dialog>
       </Box>
     </Container>
   );
