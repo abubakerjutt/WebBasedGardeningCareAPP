@@ -294,8 +294,6 @@ const BrowsePlants = () => {
 
   const categories = [
     "All",
-    "Indoor",
-    "Outdoor",
     "Herb",
     "Vegetable",
     "Flowering",
@@ -305,7 +303,7 @@ const BrowsePlants = () => {
     "Shrub",
     "Succulent",
   ];
-  const difficulties = ["All", "Easy", "Medium", "Hard"];
+  const difficulties = ["All", "Easy", "Moderate", "Difficult"];
 
   const handleManualRetry = () => {
     setRetryCount(0);

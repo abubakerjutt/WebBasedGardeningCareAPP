@@ -8,42 +8,6 @@ dns.setDefaultResultOrder("ipv4first");
 const dnsLookup = promisify(dns.lookup);
 
 /**
- * Tests DNS resolution for MongoDB Atlas hostname
- */
-const testDNSResolution = async (uri) => {
-  try {
-    // Handle both SRV and standard connection strings
-    let hostname;
-    if (uri.includes("mongodb+srv")) {
-      const match = uri.match(/mongodb\+srv:\/\/[^:]+:[^@]+@([^\/\?]+)/);
-      if (match) hostname = match[1];
-    } else {
-      const match = uri.match(/mongodb:\/\/[^:]+:[^@]+@([^\/\?,:]+)/);
-      if (match) hostname = match[1];
-    }
-
-    if (!hostname) {
-      console.log("❓ Could not extract hostname from MongoDB URI");
-      return false;
-    }
-
-    console.log(`🔍 Testing DNS resolution for: ${hostname}`);
-
-    try { 
-      const result = await dnsLookup(hostname);
-      console.log(`✅ DNS resolution successful: ${result.address}`);
-      return true;
-    } catch (dnsError) {
-      console.error(`❌ DNS resolution failed for ${hostname}:`, dnsError.message);
-      return false;
-    }
-  } catch (error) {
-    console.error("❌ Error in DNS check:", error.message);
-    return false;
-  }
-};
-
-/**
  * Connects to MongoDB using official recommended approach
  */
 const connectDB = async () => {
@@ -75,18 +39,20 @@ const connectDB = async () => {
     return mongoose.connection;
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error.message);
-    
+
     if (error.message.includes("querySrv ETIMEOUT")) {
       console.log("\n💡 DNS resolution timeout. Possible solutions:");
       console.log("1. Use a direct connection string instead of SRV format");
       console.log("2. Try a different network connection");
       console.log("3. Use local MongoDB for development");
     }
-    
+
     if (error.message.includes("IP")) {
-      console.log("\n💡 Your IP address may need whitelisting in MongoDB Atlas");
+      console.log(
+        "\n💡 Your IP address may need whitelisting in MongoDB Atlas"
+      );
     }
-    
+
     throw error;
   }
 };
@@ -100,4 +66,3 @@ const disconnectDB = async () => {
 };
 
 export { connectDB, disconnectDB };
-
